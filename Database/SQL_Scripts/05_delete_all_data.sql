@@ -1,3 +1,5 @@
 DELETE FROM Task;
 
 DELETE FROM Country;
+
+DELETE FROM Order_Type;

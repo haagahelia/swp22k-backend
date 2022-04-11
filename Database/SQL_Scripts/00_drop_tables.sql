@@ -1,3 +1,5 @@
 DROP TABLE Task;
 
 DROP TABLE Country;
+
+DROP TABLE Order_Type;
