@@ -14,7 +14,7 @@ const report = express.Router();
 // signed even if the planned delivery was yesterday or similar
 
 // GET ALL http:localhost:8777/api/report/
-report.get("/", (req, res) => {
+report.get("/", (res) => {
     knex("Task").select()
         .then((signatureArray) => {
             successHandler(res, signatureArray, "GET all tasks worked!")
@@ -25,7 +25,7 @@ report.get("/", (req, res) => {
 })
 
 // GET SIGNED http:localhost:8777/api/report/signed
-report.get("/signed", (req, res) => {
+report.get("/signed", (res) => {
     knex("Task").select().whereNotNull("pu_signature_image")
         .then((signatureArray) => {
             successHandler(res, signatureArray, "GET all signed tasks worked!")
@@ -36,7 +36,7 @@ report.get("/signed", (req, res) => {
 })
 
 // GET NOT SIGNED http:localhost:8777/api/report/notsigned
-report.get("/notsigned", (req, res) => {
+report.get("/notsigned", (res) => {
     knex("Task").select().whereNull("pu_signature_image")
         .then((signatureArray) => {
             successHandler(res, signatureArray, "GET all not signed tasks worked!")
@@ -47,7 +47,7 @@ report.get("/notsigned", (req, res) => {
 })
 
 // GET report grouped by order_type http:localhost:8777/api/report/by_order_type
-report.get("/by_order_type", (req, res) => {
+report.get("/by_order_type", (res) => {
     knex("Task").select('order_type')
                 .count('order_type', {as: 'total'})
                 .count('pu_signed_at', {as: 'signed'})
