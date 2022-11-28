@@ -12,12 +12,6 @@ CREATE TABLE IF NOT EXISTS OrderType (
     PRIMARY KEY (order_type)
 );
 
-/*
-I added created_at column just to know when the Task is created,
-if not needed, of course we can remove it
-
-NOTE: pu_planned_time should be NOT NULL? Or does it matter? Not used in our demo process.
-*/
 
 CREATE TABLE IF NOT EXISTS Task (
     uuid                CHAR(24)        UNIQUE NOT NULL,
@@ -35,12 +29,28 @@ CREATE TABLE IF NOT EXISTS Task (
     CONSTRAINT fk_Country FOREIGN KEY (country_code) REFERENCES Country(id) 
 );
 
-/*
-CREATE TABLE Task 
-(
-    uuid        CHAR(24)        UNIQUE NOT NULL,
-    pu_address  VARCHAR(255)    NOT NULL,
+CREATE TABLE IF NOT EXISTS User (
+    userId                INT             UNIQUE NOT NULL,
+    email                 VARCHAR(20)     UNIQUE NOT NULL,
+    phone                 VARCHAR(11)     UNIQUE NOT NULL,
+    firstName             VARCHAR(24)     NOT NULL,
+    lastName              VARCHAR(24)     NOT NULL,
+    pword                 VARCHAR(100)    NOT NULL,
+    PRIMARY KEY (userId)  
 
-    CONSTRAINT pk_Task PRIMARY KEY(uuid) 
 );
-*/
+
+CREATE TABLE IF NOT EXISTS Roles (
+
+    givenrole     VARCHAR(25) NOT NULL,
+    PRIMARY KEY (givenrole)    
+    
+);
+
+CREATE TABLE IF NOT EXISTS User_Roles (
+    userId                INT             NOT NULL,
+    givenrole     VARCHAR(25) NOT NULL,
+    CONSTRAINT fk_userId FOREIGN KEY (userId) REFERENCES User(userId),
+    CONSTRAINT fk_Roles FOREIGN KEY (givenrole) REFERENCES Roles(givenrole) 
+
+)
